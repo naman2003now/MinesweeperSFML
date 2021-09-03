@@ -4,9 +4,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(Minesweeper)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/Button.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/Button.cpp src/Game.cpp)
 link_directories(lib)
 
 target_include_directories(${PROJECT_NAME} PUBLIC include)
