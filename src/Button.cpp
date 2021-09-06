@@ -33,17 +33,35 @@ sf::Vector2f rotate(sf::Vector2f vector, sf::Vector2f origin, float angle){
 
 Button::Button(sf::Vector2f size, float radius){
     this->shape.setPointCount(100);
-    sf::Vector2f origin = sf::Vector2f(0.0f, 0.0f);
-    sf::Vector2f point = origin + sf::Vector2f(radius, radius);
-    for(int i = 0; i < 100; i++){
+    size = size/2.0f;
+
+    sf::Vector2f origin = sf::Vector2f((size.x*(100.0f - radius))/100.0f, (size.y*(100.0f - radius))/100.0f);
+    sf::Vector2f point = origin + sf::Vector2f(radius, 0);
+    for(int i = 0; i < 25; i++){
         point = rotate(point, origin, 360.0f/100.0f);
         shape.setPoint(i, point);
-        std::cout << point.x << " " << point.y << std::endl;
     }
-}
 
-Button::Button(float width, float height, float radius){
+    origin = sf::Vector2f(-(size.x*(100.0f - radius))/100.0f, (size.y*(100.0f - radius))/100.0f);
+    point = origin + sf::Vector2f(0, radius);
+    for(int i = 25; i < 50; i++){
+        point = rotate(point, origin, 360.0f/100.0f);
+        shape.setPoint(i, point);
+    }
 
+    origin = sf::Vector2f(-(size.x*(100.0f - radius))/100.0f, -(size.y*(100.0f - radius))/100.0f);
+    point = origin + sf::Vector2f(-radius, 0);
+    for(int i = 50; i < 75; i++){
+        point = rotate(point, origin, 360.0f/100.0f);
+        shape.setPoint(i, point);
+    }
+
+    origin = sf::Vector2f((size.x*(100.0f - radius))/100.0f, -(size.y*(100.0f - radius))/100.0f);
+    point = origin + sf::Vector2f(0, -radius);
+    for(int i = 75; i < 100; i++){
+        point = rotate(point, origin, 360.0f/100.0f);
+        shape.setPoint(i, point);
+    }
 }
 
 Button::~Button(){

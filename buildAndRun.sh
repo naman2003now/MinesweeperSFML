@@ -4,4 +4,4 @@ cmake -S . -B build/;
 cd build/; 
 make;
 cd ..;
-./bin/Minesweeper;
+./build/Minesweeper;
