@@ -3,6 +3,14 @@
 #include <time.h>
 #include <iostream>
 
+void Game::Click(int x, int y){
+    std::cout << x << " " << y << std::endl;
+}
+
+void Game::Flagged(int x, int y){
+    
+}
+
 Game::Game(const int size, const int numberOfBombs){
     srand(time(NULL));
 
