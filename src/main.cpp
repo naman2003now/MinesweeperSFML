@@ -14,6 +14,7 @@ baby blue   :   212, 241, 244
 const sf::Vector2f RESOLUTION = sf::Vector2f(800, 800);
 const sf::Color BACKGROUND_COLOR = sf::Color(5, 68, 94);
 const sf::Color BUTTON_COLOR = sf::Color(24, 154, 180);
+const sf::Color BUTTON_PRESSED = sf::Color(15, 78, 104);
 const int GAME_SIZE = 20;
 
 int main(){
@@ -51,6 +52,11 @@ int main(){
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 int mouse_x = sf::Mouse::getPosition(window).x;
                 int mouse_y = sf::Mouse::getPosition(window).y;
+                if(    mouse_x < RESOLUTION.x 
+                    && mouse_y < RESOLUTION.y 
+                    && mouse_x >= 0
+                    && mouse_y >= 0
+                    )
                 game.Click((int)(mouse_x*20/RESOLUTION.x), (int)(mouse_y*20/RESOLUTION.y));
             }else if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
                 int mouse_x = sf::Mouse::getPosition(window).x;
@@ -64,26 +70,35 @@ int main(){
         //Rendering
         for(int i = 0; i < GAME_SIZE; i++){
             for(int j = 0; j < GAME_SIZE; j++){
-                if(game.board[i][j] == EMPTY){
-                    text.setFillColor(sf::Color(212, 241, 244));
-                    if(game.numbers[i][j]){
-                        text.setString(std::to_string(game.numbers[i][j]));
-                    }
-                    else{
-                        text.setString(" ");
-                    }
+                if(game.open[i][j]){
+                    box.shape.setFillColor(BUTTON_PRESSED);
                 }
                 else{
-                    text.setFillColor(sf::Color(212, 41, 44));
-                    text.setString("F");
+                    box.shape.setFillColor(BUTTON_COLOR);
                 }
                 box.shape.setPosition(i*RESOLUTION.x/GAME_SIZE + 20, j*RESOLUTION.y/GAME_SIZE + 20);
-                text.setPosition(i*RESOLUTION.x/GAME_SIZE + 20, j*RESOLUTION.y/GAME_SIZE + 20);
                 window.draw(box.shape);
-                window.draw(text);
+                if(game.open[i][j]){
+                    if(game.board[i][j] == EMPTY){
+                        text.setFillColor(sf::Color(212, 241, 244));
+                        if(game.numbers[i][j]){
+                            text.setString(std::to_string(game.numbers[i][j]));
+                        }
+                        else{
+                            text.setString(" ");
+                        }
+                    }
+                    else{
+                        text.setFillColor(sf::Color(212, 41, 44));
+                        text.setString("F");
+                    }
+                    
+                    text.setPosition(i*RESOLUTION.x/GAME_SIZE + 20, j*RESOLUTION.y/GAME_SIZE + 20);
+                    window.draw(text);
+                }
             }
         }
-        
+
         //Update The shit that your eyes can see
         window.display();
     }

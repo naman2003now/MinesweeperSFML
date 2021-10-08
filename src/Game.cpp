@@ -2,13 +2,86 @@
 #include <random>
 #include <time.h>
 #include <iostream>
+#include <vector>
+
+class coord{
+public:
+    int x;
+    int y;
+};
 
 void Game::Click(int x, int y){
-    std::cout << x << " " << y << std::endl;
+    std::vector<coord> queue;
+    if(!open[x][y]){ 
+        open[x][y] = true;
+        if(!numbers[x][y]){
+            coord element;
+            element.x = x;
+            element.y = y;
+            queue.push_back(element);
+        }
+    }
+    while(!queue.empty()){
+        int x = queue.back().x;
+        int y = queue.back().y;
+        std::cout << x << " " << y << std::endl;
+        open[x][y] = true;
+        queue.pop_back();
+        if(!numbers[x][y]){
+            if(x + 1 < 20 && !open[x + 1][y]){
+                coord element;
+                element.x = x + 1;
+                element.y = y;
+                queue.push_back(element);
+            }
+            if(x > 0 && !open[x - 1][y]){
+                coord element;
+                element.x = x - 1;
+                element.y = y;
+                queue.push_back(element);
+            }
+            if(y + 1 < 20 && !open[x][y + 1]){
+                coord element;
+                element.x = x;
+                element.y = y + 1;
+                queue.push_back(element);
+            }
+            if(y > 0 && !open[x][y - 1]){
+                coord element;
+                element.x = x;
+                element.y = y - 1;
+                queue.push_back(element);
+            }
+            if(x + 1 < 20 && y + 1 < 20 && !open[x + 1][y + 1]){
+                coord element;
+                element.x = x + 1;
+                element.y = y + 1;
+                queue.push_back(element);
+            }
+            if(x + 1 < 20 && y > 0 && !open[x + 1][y - 1]){
+                coord element;
+                element.x = x + 1;
+                element.y = y - 1;
+                queue.push_back(element);
+            }
+            if(x > 0 && y + 1 < 20 && !open[x - 1][y + 1]){
+                coord element;
+                element.x = x - 1;
+                element.y = y + 1;
+                queue.push_back(element);
+            }
+            if(x > 0 && y > 0 && !open[x - 1][y - 1]){
+                coord element;
+                element.x = x - 1;
+                element.y = y - 1;
+                queue.push_back(element);
+            }
+        }
+    }
 }
 
 void Game::Flagged(int x, int y){
-    
+    Click(x, y);
 }
 
 Game::Game(const int size, const int numberOfBombs){
@@ -17,6 +90,7 @@ Game::Game(const int size, const int numberOfBombs){
     for(int i = 0; i < size; i++){
         for(int j = 0; j < size; j++){
             numbers[i][j] = 0;
+            open[i][j] = false;
         }
     }
     
