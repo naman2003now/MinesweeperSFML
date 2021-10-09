@@ -12,19 +12,19 @@ baby blue   :   212, 241, 244
 */
 
 const sf::Vector2f RESOLUTION = sf::Vector2f(800, 800);
-const sf::Color BACKGROUND_COLOR = sf::Color(5, 68, 94);
-const sf::Color BUTTON_COLOR = sf::Color(24, 154, 180);
-const sf::Color BUTTON_PRESSED = sf::Color(15, 78, 104);
+const sf::Color BACKGROUND_COLOR = sf::Color(255,255,238);
+const sf::Color BUTTON_COLOR = sf::Color(255, 255, 238);
+const sf::Color BUTTON_PRESSED = sf::Color(200,200,190);
 const int GAME_SIZE = 20;
 
 int main(){
     sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;  
+    settings.antialiasingLevel = 24;  
 
     sf::RenderWindow window(sf::VideoMode(RESOLUTION.x, RESOLUTION.y), "HelloWorld", sf::Style::Close, settings);
     sf::Event event;
     
-    Button box(sf::Vector2f((RESOLUTION.x/GAME_SIZE) - 20, (RESOLUTION.y/GAME_SIZE) - 20), 10.0f);
+    Button box(sf::Vector2f((RESOLUTION.x/GAME_SIZE) - 10, (RESOLUTION.y/GAME_SIZE) - 10), 5.0f);
     box.shape.setPosition(sf::Vector2f(400, 400));
     box.shape.setFillColor(BUTTON_COLOR);
 
@@ -36,7 +36,7 @@ int main(){
     text.setFont(font);
     text.setString(std::to_string(1));
     text.setCharacterSize(40);
-    text.setFillColor(sf::Color(212, 241, 244));
+    text.setFillColor(sf::Color(10, 10, 40));
     text.setOrigin(12, 27);
     text.setPosition(400, 400);
 
@@ -80,7 +80,7 @@ int main(){
                 window.draw(box.shape);
                 if(game.open[i][j]){
                     if(game.board[i][j] == EMPTY){
-                        text.setFillColor(sf::Color(212, 241, 244));
+                        text.setFillColor(sf::Color(10, 10, 40));
                         if(game.numbers[i][j]){
                             text.setString(std::to_string(game.numbers[i][j]));
                         }
@@ -89,7 +89,7 @@ int main(){
                         }
                     }
                     else{
-                        text.setFillColor(sf::Color(212, 41, 44));
+                        text.setFillColor(sf::Color(100, 10, 40));
                         text.setString("F");
                     }
                     

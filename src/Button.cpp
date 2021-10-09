@@ -62,6 +62,9 @@ Button::Button(sf::Vector2f size, float radius){
         point = rotate(point, origin, 360.0f/100.0f);
         shape.setPoint(i, point);
     }
+
+    this->shape.setOutlineColor(sf::Color(4, 7 , 40));
+    this->shape.setOutlineThickness(-3.5);
 }
 
 Button::~Button(){
